@@ -1,5 +1,5 @@
-#define OOF_IMPL
-#include "oof.h"
+//#define OOF_IMPL
+//#include "oof.h"
 
 #include "frontEnd.h"
 #include "backEnd.h"
@@ -9,5 +9,7 @@
 
 int main()
 {
-
+	system("chcp 437");
+	system("cls");
+	printLogInForm();
 }
