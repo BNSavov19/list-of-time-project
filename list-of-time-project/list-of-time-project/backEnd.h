@@ -1,40 +1,54 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <Windows.h>
 
-struct DATA;
+#define MAX_EVENTS_FOR_DISPAYMENT 10
 
-struct NODE;
 
-enum SORT_CRITERIA;
+struct DATA {
+	int day;
+	int month;
+	int year;
+	std::string name;
+	std::vector<std::string> participants;
+	std::string description;
+};
 
-class LinkedList
-{
-	public:
-		LinkedList();
+struct NODE {
+	DATA data;
+	NODE* next = nullptr;
+};
+
+class LinkedList {
 
 	public:
 		NODE* head;
 		NODE* tail;
 
 	public:
-		void addEvent(DATA data, std::string name, std::vector<std::string> participants, std::string description);
+		LinkedList();
+
+		void addEvent(int day, int month, int year, std::string name, std::vector<std::string> participants, std::string description);
+		
+		void display();
 
 };
 
-class dbManager
-{
+class Manager {
+
+	public:
+		Manager(LinkedList* linkedList);
+	
 	public:
 		LinkedList* events;
+		std::vector<NODE*> eventsForDisplayment;
 
 	public:
-		dbManager();
+		void update();
 
 	public:
-		std::vector<NODE> eventsToBeDisplayed();
-		std::vector<NODE> search(std::string query);
-		std::vector<NODE> sort(SORT_CRITERIA criteria);
-
+		void eventsToBeDisplayed();
 };

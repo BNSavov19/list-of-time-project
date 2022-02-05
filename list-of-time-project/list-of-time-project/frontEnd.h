@@ -10,15 +10,9 @@
 //function to respond to userInput
 	//"+" - add event
 	//"search" - search for events based on input
-	//"sort" - sort events based on criteria
-
-void getUserInput();
-void printLogInForm();
-void checkLogInForm(std::string username, std::string password);
-void printDataBaseBorder();
-void printDataBaseButtons();
-void displayDataBase();
+	//"sort" - sort events based on criteria0
 
 
 
-
+auto displayTextField() -> void;
+auto displayLogInForm() -> void;
