@@ -50,5 +50,5 @@ class Manager {
 		void update();
 
 	public:
-		void eventsToBeDisplayed();
+		void eventsToBeDisplayed(unsigned int startIndex);
 };

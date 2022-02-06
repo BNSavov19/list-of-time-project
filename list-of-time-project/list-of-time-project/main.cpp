@@ -28,12 +28,12 @@ int main()
 	LinkedList* events = new LinkedList;
 	Manager manager(events);
 
-	for (int i = 0; i < 15; i++)
+	for (int i = 1; i <= 15; i++)
 	{
 		events->addEvent(i, 12, 1969, "Yes", {}, "Hello");
 	}
 
-	manager.eventsToBeDisplayed();
+	manager.eventsToBeDisplayed(2);
 
 	for (NODE* Event : manager.eventsForDisplayment)
 	{

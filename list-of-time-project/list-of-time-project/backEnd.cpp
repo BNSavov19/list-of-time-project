@@ -41,13 +41,18 @@ Manager::Manager(LinkedList* linkedList)
 	events = linkedList;
 }
 
-void Manager::eventsToBeDisplayed()
+void Manager::eventsToBeDisplayed(unsigned int startIndex)
 {
 	unsigned int counter = 0;
 
 	NODE* tmp;
 	
 	tmp = events->head;
+
+	for (int i = 0; i < startIndex; i++)
+	{
+		tmp = tmp->next;
+	}
 
 	while (tmp != nullptr && counter < MAX_EVENTS_FOR_DISPAYMENT)
 	{
