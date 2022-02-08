@@ -18,7 +18,6 @@
 
 	//};
 
-
 int main()
 {
 	system("chcp 437");
@@ -26,7 +25,7 @@ int main()
 	
 	LinkedList* events = new LinkedList;
 	Manager manager(events);
-	DataBase db(0);
+	DataBase db(manager.eventsForDisplayment);
 
 	for (int i = 1; i <= 15; i++)
 	{
@@ -35,6 +34,7 @@ int main()
 
 	manager.eventsToBeDisplayed(0);
 
-	db.innitDataBase(manager.eventsForDisplayment);
+	db.innitDataBase();
+
 
 }

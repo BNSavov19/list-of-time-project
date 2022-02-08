@@ -1,10 +1,5 @@
 #include "frontEnd.h"
 
-#define KEY_UP 72
-#define KEY_DOWN 80
-#define KEY_LEFT 75
-#define KEY_RIGHT 77
-
 //display Log in Form
 
 	//if(login) -> enterDataBase
@@ -20,24 +15,31 @@
 			//"sort" -> establish what sorting criteria to use -> call dbManager->sort(criteria);
 
 
-DataBase::DataBase(unsigned int selectedEvent)
+DataBase::DataBase(std::vector<NODE*> &events)
 {
-	m_selectedEvent = selectedEvent;
+	m_events = &events;
+	m_selectedEvent = 0;
 }
 
-void DataBase::innitDataBase(std::vector<NODE*> events)
+void DataBase::innitDataBase()
 {
+	system("cls");
+
 	//innit Table for database
-	tabulate::Table eventsTable;
+	eventsTable = new tabulate::Table;
 
 	//for each event -> add a row
-	for (NODE* Event : events)
+	for (NODE* Event : *m_events)
 	{
-		eventsTable.add_row({ Event->data.name, std::to_string(Event->data.day), std::to_string(Event->data.month),  std::to_string(Event->data.year), Event->data.description });
+		eventsTable->add_row({ Event->data.name,
+				std::to_string(Event->data.day),
+				std::to_string(Event->data.month),
+				std::to_string(Event->data.year),
+							   Event->data.description });
 	}
 
 	//style the rows
-	eventsTable[m_selectedEvent].format()
+	(*eventsTable)[m_selectedEvent].format()
 		.font_background_color(tabulate::Color::white)
 		.font_color(tabulate::Color::grey);
 
@@ -46,19 +48,19 @@ void DataBase::innitDataBase(std::vector<NODE*> events)
 	{
 		if (i == 0)
 		{
-			eventsTable[m_selectedEvent][i].format()
+			(*eventsTable)[m_selectedEvent][i].format()
 				.border_right_color(tabulate::Color::white)
 				.border_right_background_color(tabulate::Color::white);
 		}
 		else if (i == 4)
 		{
-			eventsTable[m_selectedEvent][i].format()
+			(*eventsTable)[m_selectedEvent][i].format()
 				.border_left_color(tabulate::Color::white)
 				.border_left_background_color(tabulate::Color::white);
 		}
 		else
 		{
-			eventsTable[m_selectedEvent][i].format()
+			(*eventsTable)[m_selectedEvent][i].format()
 				.border_left_color(tabulate::Color::white)
 				.border_left_background_color(tabulate::Color::white)
 				.border_right_color(tabulate::Color::white)
@@ -68,33 +70,33 @@ void DataBase::innitDataBase(std::vector<NODE*> events)
 	}
 
 	//print table
-	std::cout << eventsTable;
+
+	std::cout << *eventsTable;
+
+	getInput();
 }
 
 
-//void getInput()
-//{
-//	char input = _getch();
-//
-//	switch (input)
-//	{
-//		case KEY_UP:
-//			//selectUpYes
-//			break;
-//		case KEY_DOWN:
-//			//if selected menu boutouns, select data attributes yes
-//			break;
-//		case KEY_LEFT:
-//			//select left boutou
-//			break;
-//		case KEY_RIGHT:
-//			//select right boutou
-//			break;
-//
-//		default:
-//			break;
-//	}
-//
-//	getInput();
-//
-//}
+void DataBase::getInput()
+{
+	char input = _getch();
+
+	if (input == KEY_DOWN)
+	{
+		m_selectedEvent = m_selectedEvent == 9 ? 0 : m_selectedEvent+1;
+		delete eventsTable;
+		innitDataBase();
+	}
+
+	else if (input == KEY_UP)
+	{
+		m_selectedEvent = m_selectedEvent == 0 ? 9 : m_selectedEvent-1;
+		delete eventsTable;
+		innitDataBase();
+	}
+
+	//add ENTER
+
+	else getInput();
+
+}
