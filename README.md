@@ -37,7 +37,7 @@ unusual way. But how will we do it? You will find out later.
 
 Open file explorer by pressing ` win + e ` or open it from the task bar
 
-Go to the direction that you want to safe the folder
+Go to the direction that you want to save the folder
 
 Open command prompt like the gif bellow
 
