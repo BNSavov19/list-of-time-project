@@ -29,6 +29,8 @@ void DataBase::innitDataBase()
 	//innit Table for database
 	eventsTable = new tabulate::Table;
 
+	int rowCounter = 0;
+
 	//for each event -> add a row
 	for (NODE* Event : *m_events)
 	{
@@ -37,6 +39,16 @@ void DataBase::innitDataBase()
 				std::to_string(Event->data.month),
 				std::to_string(Event->data.year),
 							   Event->data.description });
+
+		rowCounter++;
+	}
+
+	if (rowCounter < 9)
+	{
+		for (int i = 0; i < 10 - rowCounter; i++)
+		{
+			eventsTable->add_row({" "});
+		}
 	}
 
 	//style the rows

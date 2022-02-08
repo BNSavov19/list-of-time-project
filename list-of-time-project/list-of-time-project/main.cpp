@@ -27,14 +27,7 @@ int main()
 	Manager manager(events);
 	DataBase db(manager.eventsForDisplayment);
 
-	for (int i = 1; i <= 15; i++)
-	{
-		events->addEvent(i, 12, 1969, "Yes", {}, "Hello");
-	}
-
 	manager.eventsToBeDisplayed(0);
 
 	db.innitDataBase();
-
-
 }

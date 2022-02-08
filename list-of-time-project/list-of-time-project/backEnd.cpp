@@ -4,15 +4,15 @@ LinkedList::LinkedList()
 	: head(nullptr),
 	  tail(nullptr)
 {
-	
+
 }
 
-void LinkedList::addEvent(int day, int month, int year, std::string name, std::vector<std::string> participants, std::string description)
+void LinkedList::addEvent(int day, int month, int year, std::string name, std::string description)
 {
 
 	NODE* newEvent = new NODE;
 
-	newEvent->data = { day, month, year, name, participants, description };
+	newEvent->data = { day, month, year, name, description };
 
 	if (head == nullptr)
 	{
@@ -23,6 +23,26 @@ void LinkedList::addEvent(int day, int month, int year, std::string name, std::v
 		tail->next = newEvent;
 		tail = tail->next;
 	}
+}
+
+void LinkedList::readData()
+{
+	m_eventsData.open("../data/eventsData.csv", std::ifstream::in);
+
+	std::string day, month, year, name, description;
+
+	while (std::getline(m_eventsData, day, ','))
+	{
+		std::getline(m_eventsData, month, ',');
+		std::getline(m_eventsData, year, ',');
+		std::getline(m_eventsData, name, ',');
+		std::getline(m_eventsData, description, '\n');
+
+		addEvent(stoi(day), stoi(month), stoi(year), name, description);
+	}
+
+	m_eventsData.close();
+
 }
 
 //void LinkedList::display()
@@ -37,9 +57,9 @@ void LinkedList::addEvent(int day, int month, int year, std::string name, std::v
 //	}
 //}
 
-Manager::Manager(LinkedList* linkedList) : events(linkedList)
+Manager::Manager(LinkedList* linkedList) : m_linkedList(linkedList)
 {
-
+	m_linkedList->readData();
 }
 
 void Manager::eventsToBeDisplayed(unsigned int startIndex)
@@ -48,7 +68,7 @@ void Manager::eventsToBeDisplayed(unsigned int startIndex)
 
 	NODE* tmp;
 	
-	tmp = events->head;
+	tmp = m_linkedList->head;
 
 	for (int i = 0; i < startIndex; i++)
 	{

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 #include <Windows.h>
 #include <conio.h>
 
@@ -14,7 +15,6 @@ struct DATA {
 	int month;
 	int year;
 	std::string name;
-	std::vector<std::string> participants;
 	std::string description;
 };
 
@@ -23,18 +23,28 @@ struct NODE {
 	NODE* next = nullptr;
 };
 
+class Manager;
+
+
 class LinkedList {
+
+	friend class Manager;
 
 	public:
 		NODE* head;
 		NODE* tail;
 
+	private:
+		const char* path = "../data/eventsData.csv";
+		std::ifstream m_eventsData;
+
 	public:
 		LinkedList();
 
-		void addEvent(int day, int month, int year, std::string name, std::vector<std::string> participants, std::string description);
-		
-		//void display();
+		void addEvent(int day, int month, int year, std::string name, std::string description);
+
+	private:
+		void readData();
 
 };
 
@@ -44,12 +54,11 @@ class Manager {
 		Manager(LinkedList* linkedList);
 	
 	public:
-		LinkedList* events;
+		LinkedList* m_linkedList;
 		std::vector<NODE*> eventsForDisplayment;
 
 	public:
-		void update();
-
-	public:
+		//void update();
 		void eventsToBeDisplayed(unsigned int startIndex);
+		
 };
