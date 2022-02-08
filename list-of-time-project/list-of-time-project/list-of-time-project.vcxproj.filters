@@ -35,5 +35,8 @@
     <ClInclude Include="frontEnd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Tabulate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

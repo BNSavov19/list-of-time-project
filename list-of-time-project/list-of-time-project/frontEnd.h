@@ -1,7 +1,7 @@
 #pragma once
-#include<string>
-#include<iostream>
-#include <conio.h>
+
+#include "backEnd.h"
+#include "Tabulate.h"
 //function to print Log In form
 //function to check Log In form
 
@@ -14,5 +14,20 @@
 
 
 
-auto displayTextField() -> void;
-auto displayLogInForm() -> void;
+void displayTextField();
+void displayLogInForm();
+
+
+
+class DataBase {
+	public:
+		DataBase(unsigned int selectedEvent);
+
+	public:
+		unsigned int m_selectedEvent;
+
+	public:
+		void innitDataBase(std::vector<NODE*> events);
+
+
+};

@@ -2,7 +2,6 @@
 //#include "oof.h"
 
 #include "frontEnd.h"
-#include "backEnd.h"
 
 	//struct DATE {
 	//	int day;
@@ -27,17 +26,15 @@ int main()
 	
 	LinkedList* events = new LinkedList;
 	Manager manager(events);
+	DataBase db(0);
 
 	for (int i = 1; i <= 15; i++)
 	{
 		events->addEvent(i, 12, 1969, "Yes", {}, "Hello");
 	}
 
-	manager.eventsToBeDisplayed(2);
+	manager.eventsToBeDisplayed(0);
 
-	for (NODE* Event : manager.eventsForDisplayment)
-	{
-		std::cout << Event->data.day << std::endl;
-	}
+	db.innitDataBase(manager.eventsForDisplayment);
 
 }

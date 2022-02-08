@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <Windows.h>
+#include <conio.h>
 
 #define MAX_EVENTS_FOR_DISPAYMENT 10
 
@@ -33,7 +34,7 @@ class LinkedList {
 
 		void addEvent(int day, int month, int year, std::string name, std::vector<std::string> participants, std::string description);
 		
-		void display();
+		//void display();
 
 };
 
