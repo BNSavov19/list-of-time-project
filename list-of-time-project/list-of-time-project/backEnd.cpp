@@ -1,9 +1,10 @@
 #include "backEnd.h"
 
-LinkedList::LinkedList()
+LinkedList::LinkedList() 
+	: head(nullptr),
+	  tail(nullptr)
 {
-	head = nullptr;
-	tail = nullptr;
+	
 }
 
 void LinkedList::addEvent(int day, int month, int year, std::string name, std::vector<std::string> participants, std::string description)
@@ -36,9 +37,9 @@ void LinkedList::addEvent(int day, int month, int year, std::string name, std::v
 //	}
 //}
 
-Manager::Manager(LinkedList* linkedList)
+Manager::Manager(LinkedList* linkedList) : events(linkedList)
 {
-	events = linkedList;
+
 }
 
 void Manager::eventsToBeDisplayed(unsigned int startIndex)

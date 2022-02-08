@@ -15,10 +15,11 @@
 			//"sort" -> establish what sorting criteria to use -> call dbManager->sort(criteria);
 
 
-DataBase::DataBase(std::vector<NODE*> &events)
+DataBase::DataBase(std::vector<NODE*>& events)
+	: m_events(&events), 
+	  m_selectedEvent(0)
 {
-	m_events = &events;
-	m_selectedEvent = 0;
+
 }
 
 void DataBase::innitDataBase()
