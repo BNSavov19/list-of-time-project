@@ -82,3 +82,48 @@ void Manager::eventsToBeDisplayed(unsigned int startIndex)
 		counter++;
 	}
 }
+
+void Manager::byDate(std::string key)
+{
+	for(NODE* _event : eventsForDisplayment)
+	{
+		if (_event->data.day == stoi(key) || _event->data.month == stoi(key) || _event->data.year == stoi(key))
+			EventsForDisplayment_sorted.push_back(_event);
+	}
+}
+
+void Manager::byDay(std::string key)
+{
+	for (NODE* _event : eventsForDisplayment)
+	{
+		if (_event->data.day == stoi(key))
+			EventsForDisplayment_sorted.push_back(_event);
+	}
+}
+
+void Manager::byMonth(std::string key)
+{
+	for (NODE* _event : eventsForDisplayment)
+	{
+		if (_event->data.month == stoi(key))
+			EventsForDisplayment_sorted.push_back(_event);
+	}
+}
+
+void Manager::byYear(std::string key)
+{
+	for (NODE* _event : eventsForDisplayment)
+	{
+		if (_event->data.year == stoi(key))
+			EventsForDisplayment_sorted.push_back(_event);
+	}
+}
+
+void Manager::byName(std::string key)
+{
+	for (NODE* _event : eventsForDisplayment)
+	{
+		if (_event->data.name.find(key) != std::string::npos)
+			EventsForDisplayment_sorted.push_back(_event);
+	}
+}

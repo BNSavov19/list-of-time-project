@@ -25,7 +25,7 @@ int main()
 	
 	LinkedList* events = new LinkedList;
 	Manager manager(events);
-	DataBase db(manager.eventsForDisplayment);
+	DataBase db(manager, manager.eventsForDisplayment);
 
 	manager.eventsToBeDisplayed(0);
 
