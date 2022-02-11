@@ -177,7 +177,7 @@ void DataBase::getInput()
 	{
 		if (m_userSelection != SELECTED_FIELD::EVENTS)
 		{
-			m_userSelection = int(m_userSelection) == 3 ? SELECTED_FIELD::ADD : SELECTED_FIELD(int(m_userSelection) + 1);
+			m_userSelection = int(m_userSelection) == (m_queryIsOn ? 3 : 2) ? SELECTED_FIELD::ADD : SELECTED_FIELD(int(m_userSelection) + 1);
 
 		}
 		else
@@ -193,7 +193,7 @@ void DataBase::getInput()
 	{
 		if (m_userSelection != SELECTED_FIELD::EVENTS)
 		{
-			m_userSelection = int(m_userSelection) == 0 ? SELECTED_FIELD::RESET : SELECTED_FIELD(int(m_userSelection) - 1);
+			m_userSelection = int(m_userSelection) == 0 ?  (m_queryIsOn ? SELECTED_FIELD::RESET : SELECTED_FIELD::SEARCH) : SELECTED_FIELD(int(m_userSelection) - 1);
 
 		}
 		else
