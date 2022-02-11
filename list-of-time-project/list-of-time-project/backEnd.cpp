@@ -7,7 +7,7 @@ LinkedList::LinkedList()
 
 }
 
-void LinkedList::addEvent(int day, int month, int year, std::string name, std::string description)
+void LinkedList::addNode(int day, int month, int year, std::string name, std::string description)
 {
 
 	NODE* newEvent = new NODE;
@@ -27,7 +27,7 @@ void LinkedList::addEvent(int day, int month, int year, std::string name, std::s
 
 void LinkedList::readData()
 {
-	m_eventsData.open("../data/eventsData.csv", std::ifstream::in);
+	m_eventsData.open("../data/eventsData.csv", std::fstream::in);
 
 	std::string day, month, year, name, description;
 
@@ -38,11 +38,20 @@ void LinkedList::readData()
 		std::getline(m_eventsData, name, ',');
 		std::getline(m_eventsData, description, '\n');
 
-		addEvent(stoi(day), stoi(month), stoi(year), name, description);
+		addNode(stoi(day), stoi(month), stoi(year), name, description);
 	}
 
 	m_eventsData.close();
 
+}
+
+void LinkedList::writeData(DATA eventData)
+{
+	m_eventsData.open("../data/eventsData.csv", std::ios::app);
+
+	m_eventsData << std::endl << eventData.day << ',' << eventData.month << ',' << eventData.year << ',' << eventData.name << ',' << eventData.description << '\n';
+
+	m_eventsData.close();
 }
 
 //void LinkedList::display()
@@ -62,8 +71,20 @@ Manager::Manager(LinkedList* linkedList) : m_linkedList(linkedList)
 	m_linkedList->readData();
 }
 
+void Manager::addEvent(DATA eventData)
+{
+	m_linkedList->addNode(eventData.day, eventData.month, eventData.year, eventData.name, eventData.description);
+
+	m_linkedList->writeData(eventData);
+}
+
+
 void Manager::eventsToBeDisplayed(unsigned int startIndex)
 {
+
+	if (!eventsForDisplayment.empty())
+		eventsForDisplayment.clear();
+
 	unsigned int counter = 0;
 
 	NODE* tmp;

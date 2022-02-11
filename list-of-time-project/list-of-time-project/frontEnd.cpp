@@ -65,6 +65,33 @@ std::pair<std::string, std::string> DataBase::getKey()
 
 }
 
+void DataBase::getEventInput()
+{
+
+	system("cls");
+
+	std::string name, day, month, year, description;
+
+	std::cout << "Name:              " << std::endl;
+	std::cout << "Day:              " << std::endl;
+	std::cout << "Month:              " << std::endl;
+	std::cout << "Year:              " << std::endl;
+	std::cout << "Description:              " << std::endl;
+
+	gotoxy(19, 0); getline(std::cin, name, '\n');
+	gotoxy(5, 1);  getline(std::cin, day, '\n');
+	gotoxy(7, 2);  getline(std::cin, month, '\n');
+	gotoxy(6, 3);  getline(std::cin, year, '\n');
+	gotoxy(13, 4); getline(std::cin, description, '\n');
+
+	DATA eventData = { stoi(day), stoi(month), stoi(year), name, description };
+
+	m_Manager->addEvent(eventData);
+
+	m_Manager->eventsToBeDisplayed(0);
+
+}
+
 
 
 void DataBase::innitDataBase()
@@ -81,8 +108,6 @@ void DataBase::innitDataBase()
 	{
 		buttonsTable->add_row({ "add", "sort", "           ", "reset"});
 	}
-
-	
 
 	if (m_userSelection != SELECTED_FIELD::EVENTS)
 	{
@@ -207,9 +232,16 @@ void DataBase::getInput()
 
 	else if (input == KEY_ENTER)
 	{
-		if (m_userSelection == SELECTED_FIELD::SEARCH)
-		{
 
+		if (m_userSelection == SELECTED_FIELD::ADD)
+		{
+			getEventInput();
+
+		}
+
+
+		else if (m_userSelection == SELECTED_FIELD::SEARCH)
+		{
 			if (!m_Manager->EventsForDisplayment_sorted.empty())
 				m_Manager->EventsForDisplayment_sorted.clear();
 	
@@ -222,11 +254,10 @@ void DataBase::getInput()
 			m_selectedEvent = 0;
 			m_userSelection = SELECTED_FIELD::EVENTS;
 
-			delete buttonsTable;
-			delete eventsTable;
-			innitDataBase();
-
 		}
+
+
+
 		else if (m_userSelection == SELECTED_FIELD::RESET)
 		{
 			m_Manager->EventsForDisplayment_sorted.clear();
@@ -234,10 +265,14 @@ void DataBase::getInput()
 			m_selectedEvent = 0;
 			m_userSelection = SELECTED_FIELD::ADD;
 
-			delete buttonsTable;
-			delete eventsTable;
-			innitDataBase();
+			
+
 		}
+
+		delete buttonsTable;
+		delete eventsTable;
+		innitDataBase();
+
 	}
 
 	else getInput();

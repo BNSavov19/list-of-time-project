@@ -383,4 +383,6 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+# Ignores data file
+list-of-time-project\list-of-time-project\data
 .csv

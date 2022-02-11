@@ -50,5 +50,6 @@ class DataBase {
 
 	private:
 		std::pair<std::string, std::string> getKey();
+		void getEventInput();
 
 };

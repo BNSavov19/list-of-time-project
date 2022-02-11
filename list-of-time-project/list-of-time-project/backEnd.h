@@ -35,15 +35,16 @@ public:
 
 private:
 	const char* path = "../data/eventsData.csv";
-	std::ifstream m_eventsData;
+	std::fstream m_eventsData;
 
 public:
 	LinkedList();
 
-	void addEvent(int day, int month, int year, std::string name, std::string description);
+	void addNode(int day, int month, int year, std::string name, std::string description);
 
 private:
 	void readData();
+	void writeData(DATA eventData);
 
 };
 
@@ -67,6 +68,7 @@ public:
 
 public:
 	//void update();
+	void addEvent(DATA eventData);
 	void eventsToBeDisplayed(unsigned int startIndex);
 
 	void byDate (std::string key);
