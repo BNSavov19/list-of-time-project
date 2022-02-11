@@ -27,7 +27,7 @@ void LinkedList::addNode(int day, int month, int year, std::string name, std::st
 
 void LinkedList::readData()
 {
-	m_eventsData.open("../data/eventsData.csv", std::fstream::in);
+	m_eventsData.open("../data/eventsData.csv", std::fstream::in | std::fstream::out);
 
 	std::string day, month, year, name, description;
 
@@ -41,6 +41,8 @@ void LinkedList::readData()
 		addNode(stoi(day), stoi(month), stoi(year), name, description);
 	}
 
+	m_eventsData << std::endl;
+
 	m_eventsData.close();
 
 }
@@ -49,22 +51,10 @@ void LinkedList::writeData(DATA eventData)
 {
 	m_eventsData.open("../data/eventsData.csv", std::ios::app);
 
-	m_eventsData << std::endl << eventData.day << ',' << eventData.month << ',' << eventData.year << ',' << eventData.name << ',' << eventData.description << '\n';
+	m_eventsData << eventData.day << ',' << eventData.month << ',' << eventData.year << ',' << eventData.name << ',' << eventData.description << std::endl;
 
 	m_eventsData.close();
 }
-
-//void LinkedList::display()
-//{
-//	NODE* tmp = head;
-//
-//	while (tmp != nullptr)
-//	{
-//		std::cout << tmp->data.day << " | " << tmp->data.month << " | " << tmp->data.year << " | " << tmp->data.name << " | " << tmp->data.description << std::endl;
-//		std::cout << "____________________________________________________________________________________________________________" << std::endl;
-//		tmp = tmp->next;
-//	}
-//}
 
 Manager::Manager(LinkedList* linkedList) : m_linkedList(linkedList)
 {
