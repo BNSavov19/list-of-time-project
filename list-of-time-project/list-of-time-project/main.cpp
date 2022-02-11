@@ -28,6 +28,8 @@ int main()
 	DataBase db(manager, manager.eventsForDisplayment);
 
 	manager.eventsToBeDisplayed(0);
+	
+	printLogIn();
 
 	db.innitDataBase();
 }

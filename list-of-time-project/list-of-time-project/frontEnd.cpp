@@ -20,6 +20,55 @@ void gotoxy(short x, short y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coordinates);
 }
 
+bool check(std::string username, std::string password)
+{
+	return(username == "admin" && password == "adminadmin");
+}
+
+void printLogIn()
+{
+	std::string username, password;
+
+	system("cls");
+
+	std::cout << "Username:              " << std::endl;
+	std::cout << "Password:              " << std::endl;
+
+	gotoxy(11, 0); getline(std::cin, username, '\n');
+
+	gotoxy(11, 1);
+
+	int x = 11;
+	while (true)
+	{
+		char c = _getch();
+
+		if (c == '\r') { break; }
+
+		else if (c == '\b')
+		{
+			if (x - 1 != 10)
+			{
+				std::cout << "\b";
+				std::cout << " ";
+				gotoxy(x - 1, 1);
+				x--;
+			}
+		}
+		else
+		{
+			password += c;
+			x++;
+			std::cout << "*";
+		}
+	}
+
+	system("cls");
+
+	if (check(username, password)) { std::cout << "data"; }
+	else { printLogIn(); }
+}
+
 DataBase::DataBase(Manager& manager, std::vector<NODE*>& events)
 	: m_Manager(&manager),
 	m_events(&events),

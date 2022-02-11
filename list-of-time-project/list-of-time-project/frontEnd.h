@@ -27,6 +27,8 @@ enum class SELECTED_FIELD {
 	EVENTS
 };
 
+bool check();
+void printLogIn();
 
 class DataBase {
 	public:
