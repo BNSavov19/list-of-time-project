@@ -9,7 +9,6 @@
 - [Main idea](#idea)
 - [Program preview](#preview)
 - [Tutorial how to download and run](#download)
-- [Features](#features)
 
 
 ## Members 👨‍💻 <a id = "members"></a>
@@ -52,4 +51,3 @@ Open the folder and then open the `list-of-time-project` folder
 Open `main.cpp` and press `F5` to run the code or do what this gif bellow does
 
 ![How to run code in Visual studio](https://docs.microsoft.com/th-th/cpp/build/media/vscpp-start-without-debugging.gif?view=msvc-170)
-## Features <a id = "features"></a>
