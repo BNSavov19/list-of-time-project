@@ -384,5 +384,4 @@ MigrationBackup/
 .ionide/
 
 # Ignores data file
-list-of-time-project\list-of-time-project\data
-.csv
+list-of-time-project/list-of-time-project/data/eventsData.csv
