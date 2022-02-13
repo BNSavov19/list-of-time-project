@@ -1,5 +1,7 @@
 # Lunar project
 
+![Logo](public/Logo-Design.png)
+
 ## Table of contents 📖
 
 - [Members](#members)
