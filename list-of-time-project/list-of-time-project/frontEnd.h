@@ -27,6 +27,11 @@ enum class SELECTED_FIELD {
 	EVENTS
 };
 
+enum class SELECTED_SORT {
+	NEWEST,
+	OLDEST
+};
+
 bool check();
 void printLogIn();
 
