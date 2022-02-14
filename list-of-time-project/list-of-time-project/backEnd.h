@@ -6,6 +6,8 @@
 #include <fstream>
 #include <conio.h>
 #include <map>
+#include <algorithm>
+#include <Windows.h>
 
 #define MAX_EVENTS_FOR_DISPAYMENT 10
 
@@ -76,12 +78,12 @@ public:
 		{"name", &Manager::search_byName},
 	};
 
-	/*const std::map<int, void(Manager::*)()> m_soryMap{
+	const std::map<int, void(Manager::*)()> m_sortMap{
 		{1, &Manager::sort_Newest},
 		{2, &Manager::sort_Oldest},
 		{3, &Manager::sort_LatestAdded},
 		{4, &Manager::sort_OldestAdded},
-	};*/
+	};
 
 public:
 	//void update();
@@ -89,6 +91,7 @@ public:
 	void eventsToBeDisplayed(unsigned int startIndex);
 
 
+public:
 	//search functions
 	void search_byDate (std::string key);
 	void search_byDay  (std::string key);
@@ -97,10 +100,10 @@ public:
 	void search_byName (std::string key);
 
 	//sort functions
-	/*void sort_Newest();
-	void sort_Oldest();
-	void sort_LatestAdded();
-	void sort_OldestAdded();*/
+	void sort_Newest ();
+	void sort_Oldest ();
+	void sort_LatestAdded ();
+	void sort_OldestAdded ();
 
 
 };

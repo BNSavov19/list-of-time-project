@@ -75,7 +75,8 @@ DataBase::DataBase(Manager& manager, std::vector<NODE*>& events)
 	m_userSelection(SELECTED_FIELD::ADD),
 	m_selectedSort(),
 	m_selectedEvent(0),
-	m_queryIsOn(false)
+	m_queryIsOn(false),
+	m_sortIsOn(false)
 {
 
 }
@@ -137,13 +138,37 @@ void DataBase::innitDataBase()
 
 	buttonsTable = new tabulate::Table;
 
-	if (!m_queryIsOn)
+	if (!m_queryIsOn && !m_sortIsOn)
 	{
-		buttonsTable->add_row({ "add", "sort", "           " });
+
+		buttonsTable->add_row({ "add", "sort", "           ", "export"});
 	}
-	else
+	else if(m_queryIsOn)
 	{
-		buttonsTable->add_row({ "add", "sort", "           ", "reset"});
+		buttonsTable->add_row({ "add", "sort", "           ", "reset", "export"});
+	}
+	else if(m_sortIsOn)
+	{
+
+		if (m_selectedSort == SELECTED_SORT::NEWEST)
+		{
+			buttonsTable->add_row({ "add", "most recent", "           ", "reset", "export" });
+		}
+
+		if (m_selectedSort == SELECTED_SORT::OLDEST)
+		{
+			buttonsTable->add_row({ "add", "most old", "           ", "reset", "export" });
+		}
+
+		if (m_selectedSort == SELECTED_SORT::LATEST_ADDED)
+		{
+			buttonsTable->add_row({ "add", "latest added", "           ", "reset", "export" });
+		}
+
+		if (m_selectedSort == SELECTED_SORT::OLDEST_ADDED)
+		{
+			buttonsTable->add_row({ "add", "oldest added", "           ", "reset", "export" });
+		}
 	}
 
 	if (m_userSelection != SELECTED_FIELD::EVENTS)
@@ -161,7 +186,7 @@ void DataBase::innitDataBase()
 	int rowCounter = 0;
 
 	//for each event -> add a row
-	for (NODE* Event : m_queryIsOn ? m_Manager->EventsForDisplayment_sorted : *m_events)
+	for (NODE* Event : m_queryIsOn || m_sortIsOn ? m_Manager->EventsForDisplayment_sorted : *m_events)
 	{
 		eventsTable->add_row({ Event->data.name,
 				std::to_string(Event->data.day),
@@ -239,7 +264,7 @@ void DataBase::getInput()
 	{
 		if (m_userSelection != SELECTED_FIELD::EVENTS)
 		{
-			m_userSelection = int(m_userSelection) == (m_queryIsOn ? 3 : 2) ? SELECTED_FIELD::ADD : SELECTED_FIELD(int(m_userSelection) + 1);
+			m_userSelection = int(m_userSelection) == (m_queryIsOn || m_sortIsOn ? 3 : 2) ? SELECTED_FIELD::ADD : SELECTED_FIELD(int(m_userSelection) + 1);
 
 		}
 		else
@@ -255,7 +280,7 @@ void DataBase::getInput()
 	{
 		if (m_userSelection != SELECTED_FIELD::EVENTS)
 		{
-			m_userSelection = int(m_userSelection) == 0 ?  (m_queryIsOn ? SELECTED_FIELD::RESET : SELECTED_FIELD::SEARCH) : SELECTED_FIELD(int(m_userSelection) - 1);
+			m_userSelection = int(m_userSelection) == 0 ?  (m_queryIsOn || m_sortIsOn ? SELECTED_FIELD::RESET : SELECTED_FIELD::SEARCH) : SELECTED_FIELD(int(m_userSelection) - 1);
 
 		}
 		else
@@ -273,12 +298,19 @@ void DataBase::getInput()
 		if (m_userSelection == SELECTED_FIELD::ADD)
 		{
 			getEventInput();
-
 		}
 
 		if (m_userSelection == SELECTED_FIELD::SORT)
 		{
+			m_sortIsOn = true;
 			m_selectedSort = (m_selectedSort == SELECTED_SORT::UNDEFINED) ? SELECTED_SORT::NEWEST : (m_selectedSort == SELECTED_SORT::OLDEST_ADDED) ? SELECTED_SORT::NEWEST : SELECTED_SORT(int(m_selectedSort) + 1);
+
+			if (!m_Manager->EventsForDisplayment_sorted.empty())
+				m_Manager->EventsForDisplayment_sorted.clear();
+
+			void(Manager:: * func)() = m_Manager->m_sortMap.at(int(m_selectedSort));
+			(m_Manager->*func)();
+
 		}
 
 
@@ -302,11 +334,20 @@ void DataBase::getInput()
 
 		else if (m_userSelection == SELECTED_FIELD::RESET)
 		{
-			m_Manager->EventsForDisplayment_sorted.clear();
-			m_queryIsOn = false;
-			m_selectedEvent = 0;
-			m_userSelection = SELECTED_FIELD::ADD;
 
+			if (m_queryIsOn)
+			{
+				m_queryIsOn = false;
+			}
+
+			if (m_sortIsOn)
+			{
+				m_sortIsOn = false;
+			}
+
+			m_Manager->EventsForDisplayment_sorted.clear();
+			m_selectedEvent = 0;
+			
 		}
 
 		delete buttonsTable;

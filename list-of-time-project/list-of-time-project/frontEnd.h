@@ -45,6 +45,7 @@ class DataBase {
 
 	private:
 		bool m_queryIsOn;
+		bool m_sortIsOn;
 
 
 	public:

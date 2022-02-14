@@ -154,7 +154,40 @@ void Manager::search_byName(std::string key)
 }
 
 
-//void sort_Newest() { std::cout << "yes"; }
-//void sort_Oldest() { std::cout << "yes"; }
-//void sort_LatestAdded() { std::cout << "yes"; }
-//void sort_OldestAdded() { std::cout << "yes"; }
+void Manager::sort_Newest()
+{
+	for (NODE* _event : eventsForDisplayment)
+	{
+		EventsForDisplayment_sorted.push_back(_event);
+	}
+
+	std::sort(EventsForDisplayment_sorted.begin(), EventsForDisplayment_sorted.end(), [](NODE* a, NODE* b)->bool {return a->data.year > b->data.year; });
+}
+void Manager::sort_Oldest()
+{
+	for (NODE* _event : eventsForDisplayment)
+	{
+		EventsForDisplayment_sorted.push_back(_event);
+	}
+
+	std::sort(EventsForDisplayment_sorted.begin(), EventsForDisplayment_sorted.end(), [](NODE* a, NODE* b)->bool {return a->data.year < b->data.year; });
+}
+
+void Manager::sort_LatestAdded()
+{
+	for (NODE* _event : eventsForDisplayment)
+	{
+		EventsForDisplayment_sorted.push_back(_event);
+	}
+
+	std::reverse(EventsForDisplayment_sorted.begin(), EventsForDisplayment_sorted.end());
+}
+
+void Manager::sort_OldestAdded()
+{
+	for (NODE* _event : eventsForDisplayment)
+	{
+		EventsForDisplayment_sorted.push_back(_event);
+	}
+}
+
