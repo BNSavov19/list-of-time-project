@@ -138,3 +138,9 @@ void Manager::search_byName(std::string key)
 			EventsForDisplayment_sorted.push_back(_event);
 	}
 }
+
+
+//void sort_Newest() { std::cout << "yes"; }
+//void sort_Oldest() { std::cout << "yes"; }
+//void sort_LatestAdded() { std::cout << "yes"; }
+//void sort_OldestAdded() { std::cout << "yes"; }

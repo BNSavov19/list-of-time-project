@@ -23,11 +23,14 @@ struct NODE {
 };
 
 enum class SELECTED_SORT {
+	UNDEFINED,
 	NEWEST,
 	OLDEST,
 	LATEST_ADDED,
 	OLDEST_ADDED
 };
+
+class Manager;
 
 
 class LinkedList {
@@ -72,12 +75,12 @@ public:
 		{"name", &Manager::search_byName},
 	};
 
-	const std::map<SELECTED_SORT, void(Manager::*)()> m_soryMap{
-		{SELECTED_SORT::NEWEST, &Manager::sort_Newest},
-		{SELECTED_SORT::OLDEST, &Manager::sort_Oldest},
-		{SELECTED_SORT::LATEST_ADDED, &Manager::sort_LatestAdded},
-		{SELECTED_SORT::OLDEST_ADDED, &Manager::sort_OldestAdded},
-	}
+	/*const std::map<int, void(Manager::*)()> m_soryMap{
+		{1, &Manager::sort_Newest},
+		{2, &Manager::sort_Oldest},
+		{3, &Manager::sort_LatestAdded},
+		{4, &Manager::sort_OldestAdded},
+	};*/
 
 public:
 	//void update();
@@ -93,11 +96,10 @@ public:
 	void search_byName (std::string key);
 
 	//sort functions
-
-	void sort_Newest();
+	/*void sort_Newest();
 	void sort_Oldest();
 	void sort_LatestAdded();
-	void sort_OldestAdded();
+	void sort_OldestAdded();*/
 
 
 };

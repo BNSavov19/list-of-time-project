@@ -73,6 +73,7 @@ DataBase::DataBase(Manager& manager, std::vector<NODE*>& events)
 	: m_Manager(&manager),
 	m_events(&events),
 	m_userSelection(SELECTED_FIELD::ADD),
+	m_selectedSort(),
 	m_selectedEvent(0),
 	m_queryIsOn(false)
 {
@@ -288,6 +289,11 @@ void DataBase::getInput()
 
 		}
 
+		if (m_userSelection == SELECTED_FIELD::SORT)
+		{
+			m_selectedSort = (m_selectedSort == SELECTED_SORT::UNDEFINED) ? SELECTED_SORT::NEWEST : (m_selectedSort == SELECTED_SORT::OLDEST_ADDED) ? SELECTED_SORT::NEWEST : SELECTED_SORT(int(m_selectedSort) + 1);
+		}
+
 
 		else if (m_userSelection == SELECTED_FIELD::SEARCH)
 		{
@@ -313,8 +319,6 @@ void DataBase::getInput()
 			m_queryIsOn = false;
 			m_selectedEvent = 0;
 			m_userSelection = SELECTED_FIELD::ADD;
-
-			
 
 		}
 

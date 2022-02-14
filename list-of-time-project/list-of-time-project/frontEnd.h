@@ -37,6 +37,7 @@ class DataBase {
 	public:
 		Manager* m_Manager;
 		SELECTED_FIELD m_userSelection;
+		SELECTED_SORT m_selectedSort;
 		short int m_selectedEvent; 
 		std::vector<NODE*>* m_events;
 		tabulate::Table* buttonsTable;
