@@ -22,7 +22,12 @@ struct NODE {
 	NODE* next = nullptr;
 };
 
-class Manager;
+enum class SELECTED_SORT {
+	NEWEST,
+	OLDEST,
+	LATEST_ADDED,
+	OLDEST_ADDED
+};
 
 
 class LinkedList {
@@ -58,23 +63,41 @@ public:
 	LinkedList* m_linkedList;
 	std::vector<NODE*> eventsForDisplayment;
 	std::vector<NODE*> EventsForDisplayment_sorted;
+
 	const std::map<std::string, void(Manager::*)(std::string)> m_queryMap {
-		{"date", &Manager::byDate},
-		{"day", &Manager::byDay},
-		{"month", &Manager::byMonth},
-		{"year", &Manager::byYear},
-		{"name", &Manager::byName},
+		{"date", &Manager::search_byDate},
+		{"day", &Manager::search_byDay},
+		{"month", &Manager::search_byMonth},
+		{"year", &Manager::search_byYear},
+		{"name", &Manager::search_byName},
 	};
+
+	const std::map<SELECTED_SORT, void(Manager::*)()> m_soryMap{
+		{SELECTED_SORT::NEWEST, &Manager::sort_Newest},
+		{SELECTED_SORT::OLDEST, &Manager::sort_Oldest},
+		{SELECTED_SORT::LATEST_ADDED, &Manager::sort_LatestAdded},
+		{SELECTED_SORT::OLDEST_ADDED, &Manager::sort_OldestAdded},
+	}
 
 public:
 	//void update();
 	void addEvent(DATA eventData);
 	void eventsToBeDisplayed(unsigned int startIndex);
 
-	void byDate (std::string key);
-	void byDay  (std::string key);
-	void byMonth(std::string key);
-	void byYear (std::string key);
-	void byName (std::string key);
+
+	//search functions
+	void search_byDate (std::string key);
+	void search_byDay  (std::string key);
+	void search_byMonth(std::string key);
+	void search_byYear (std::string key);
+	void search_byName (std::string key);
+
+	//sort functions
+
+	void sort_Newest();
+	void sort_Oldest();
+	void sort_LatestAdded();
+	void sort_OldestAdded();
+
 
 };

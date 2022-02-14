@@ -94,7 +94,7 @@ void Manager::eventsToBeDisplayed(unsigned int startIndex)
 	}
 }
 
-void Manager::byDate(std::string key)
+void Manager::search_byDate(std::string key)
 {
 	for(NODE* _event : eventsForDisplayment)
 	{
@@ -103,7 +103,7 @@ void Manager::byDate(std::string key)
 	}
 }
 
-void Manager::byDay(std::string key)
+void Manager::search_byDay(std::string key)
 {
 	for (NODE* _event : eventsForDisplayment)
 	{
@@ -112,7 +112,7 @@ void Manager::byDay(std::string key)
 	}
 }
 
-void Manager::byMonth(std::string key)
+void Manager::search_byMonth(std::string key)
 {
 	for (NODE* _event : eventsForDisplayment)
 	{
@@ -121,7 +121,7 @@ void Manager::byMonth(std::string key)
 	}
 }
 
-void Manager::byYear(std::string key)
+void Manager::search_byYear(std::string key)
 {
 	for (NODE* _event : eventsForDisplayment)
 	{
@@ -130,7 +130,7 @@ void Manager::byYear(std::string key)
 	}
 }
 
-void Manager::byName(std::string key)
+void Manager::search_byName(std::string key)
 {
 	for (NODE* _event : eventsForDisplayment)
 	{
