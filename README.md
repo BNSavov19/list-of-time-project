@@ -34,6 +34,11 @@ unusual way. But how will we do it? You will find out later.
 
 ## 🔮Preview🔮 <a id = "preview"></a>
 
+![Main Table](public/main_table.png)<br><br>
+
+![Queried Table](public/queried_table.png)
+
+
 ## ⚔️How to download and run☄️ <a id = "download"></a>
 
 Open file explorer by pressing ` win + e ` or open it from the task bar
