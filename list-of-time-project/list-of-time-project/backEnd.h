@@ -60,6 +60,7 @@ class Manager {
 
 public:
 	Manager(LinkedList* linkedList);
+	~Manager();
 
 
 public:

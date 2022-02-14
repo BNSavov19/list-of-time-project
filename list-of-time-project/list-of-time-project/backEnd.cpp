@@ -61,6 +61,20 @@ Manager::Manager(LinkedList* linkedList) : m_linkedList(linkedList)
 	m_linkedList->readData();
 }
 
+Manager::~Manager()
+{
+	for (NODE* _event : eventsForDisplayment)
+	{
+		delete _event;
+	}
+
+	for (NODE* _event : EventsForDisplayment_sorted)
+	{
+		delete _event;
+	}
+}
+
+
 void Manager::addEvent(DATA eventData)
 {
 	m_linkedList->addNode(eventData.day, eventData.month, eventData.year, eventData.name, eventData.description);

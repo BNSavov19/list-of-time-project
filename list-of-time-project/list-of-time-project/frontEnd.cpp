@@ -89,20 +89,7 @@ std::pair<std::string, std::string> DataBase::getKey()
 
 	std::string queryInput;
 
-	while (true)
-	{
-		char c = _getch();
-
-		if (c == KEY_ENTER)
-		{
-			break;
-		}
-		else
-		{
-			queryInput += c;
-			std::cout << c;
-		}
-	}
+	std::getline(std::cin, queryInput);
 
 	std::string key, value;
 
