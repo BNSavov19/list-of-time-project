@@ -76,7 +76,9 @@ DataBase::DataBase(Manager& manager, std::vector<NODE*>& events)
 	m_selectedSort(),
 	m_selectedEvent(0),
 	m_queryIsOn(false),
-	m_sortIsOn(false)
+	m_sortIsOn(false),
+	topEvent(0),
+	eventNumb(0)
 {
 
 }
@@ -184,16 +186,19 @@ void DataBase::innitDataBase()
 	eventsTable = new tabulate::Table;
 
 	int rowCounter = 0;
+	eventNumb = 0;
 
 	//for each event -> add a row
 	for (NODE* Event : m_queryIsOn || m_sortIsOn ? m_Manager->EventsForDisplayment_sorted : *m_events)
 	{
-		eventsTable->add_row({ Event->data.name,
+		eventsTable->add_row({ std::to_string(topEvent+eventNumb) + '.',
+				Event->data.name,
 				std::to_string(Event->data.day),
 				std::to_string(Event->data.month),
 				std::to_string(Event->data.year),
 							   Event->data.description });
 
+		eventNumb++;
 		rowCounter++;
 	}
 
@@ -236,7 +241,27 @@ void DataBase::getInput()
 		}
 		else
 		{
-			m_selectedEvent = m_selectedEvent == 9 ? 0 : m_selectedEvent + 1;
+			if (m_selectedEvent == 9)
+			{
+				if (m_selectedEvent < m_Manager->m_linkedList->eventsCount-1)
+				{
+					topEvent++;
+					m_Manager->eventsToBeDisplayed(topEvent);
+				}
+
+				else
+				{
+					m_Manager->eventsToBeDisplayed(0);
+					topEvent = 0;
+					m_selectedEvent = 0;
+				}
+			}
+
+			else
+			{
+				m_selectedEvent++;
+			}
+
 		}
 
 		delete buttonsTable;
@@ -246,13 +271,20 @@ void DataBase::getInput()
 
 	else if (input == KEY_UP)
 	{
-		if (m_selectedEvent == 0)
+		if (m_selectedEvent == 0 && topEvent == 0)
 		{
 			m_userSelection = SELECTED_FIELD::ADD;
 		}
+
+		else if (m_selectedEvent == 0 && topEvent > 0)
+		{
+				topEvent--;
+				m_Manager->eventsToBeDisplayed(topEvent);
+		}
+
 		else
 		{
-			m_selectedEvent = m_selectedEvent - 1;
+			m_selectedEvent--;
 		}
 
 		delete buttonsTable;

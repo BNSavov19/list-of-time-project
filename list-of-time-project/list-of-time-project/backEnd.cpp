@@ -2,7 +2,8 @@
 
 LinkedList::LinkedList() 
 	: head(nullptr),
-	  tail(nullptr)
+	  tail(nullptr),
+	  eventsCount(0)
 {
 
 }
@@ -23,6 +24,8 @@ void LinkedList::addNode(int day, int month, int year, std::string name, std::st
 		tail->next = newEvent;
 		tail = tail->next;
 	}
+
+	eventsCount++;
 }
 
 void LinkedList::readData()
@@ -107,6 +110,17 @@ void Manager::eventsToBeDisplayed(unsigned int startIndex)
 		counter++;
 	}
 }
+
+void Manager::getAllEvents()
+{
+	NODE* tmp = m_linkedList->head;
+
+	while (tmp->next != nullptr)
+	{
+		m_linkedList->allEvents.push_back(tmp);
+	}
+}
+
 
 void Manager::search_byDate(std::string key)
 {

@@ -42,10 +42,13 @@ class LinkedList {
 public:
 	NODE* head;
 	NODE* tail;
+	int eventsCount;
 
 private:
 	const char* path = "../data/eventsData.csv";
 	std::fstream m_eventsData;
+	std::vector<NODE*> allEvents;
+	
 
 public:
 	LinkedList();
@@ -67,6 +70,7 @@ public:
 
 public:
 	LinkedList* m_linkedList;
+	std::vector<NODE*> allEvents;
 	std::vector<NODE*> eventsForDisplayment;
 	std::vector<NODE*> EventsForDisplayment_sorted;
 
@@ -89,9 +93,10 @@ public:
 	//void update();
 	void addEvent(DATA eventData);
 	void eventsToBeDisplayed(unsigned int startIndex);
+	void getAllEvents();
 
 
-public:
+private:
 	//search functions
 	void search_byDate (std::string key);
 	void search_byDay  (std::string key);

@@ -46,6 +46,8 @@ class DataBase {
 	private:
 		bool m_queryIsOn;
 		bool m_sortIsOn;
+		int topEvent;
+		int eventNumb;
 
 
 	public:
