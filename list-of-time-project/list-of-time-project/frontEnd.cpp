@@ -239,11 +239,12 @@ void DataBase::getInput()
 		{
 			m_userSelection = SELECTED_FIELD::EVENTS;
 		}
+
 		else
 		{
 			if (m_selectedEvent == 9)
 			{
-				if (m_selectedEvent < m_Manager->m_linkedList->eventsCount-1)
+				if (topEvent+9 < m_Manager->m_linkedList->eventsCount-1)
 				{
 					topEvent++;
 					m_Manager->eventsToBeDisplayed(topEvent);
