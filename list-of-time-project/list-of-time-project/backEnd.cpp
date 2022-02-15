@@ -8,6 +8,8 @@ LinkedList::LinkedList()
 
 }
 
+//Append Node in Linked List
+
 void LinkedList::addNode(int day, int month, int year, std::string name, std::string description)
 {
 
@@ -27,6 +29,8 @@ void LinkedList::addNode(int day, int month, int year, std::string name, std::st
 
 	eventsCount++;
 }
+
+//Read events data from data file
 
 void LinkedList::readData()
 {
@@ -49,6 +53,8 @@ void LinkedList::readData()
 	m_eventsData.close();
 
 }
+
+//Write event data to data file
 
 void LinkedList::writeData(DATA eventData)
 {
@@ -77,7 +83,7 @@ Manager::~Manager()
 	}
 }
 
-
+//Add event through Linked List
 void Manager::addEvent(DATA eventData)
 {
 	m_linkedList->addNode(eventData.day, eventData.month, eventData.year, eventData.name, eventData.description);
@@ -85,7 +91,7 @@ void Manager::addEvent(DATA eventData)
 	m_linkedList->writeData(eventData);
 }
 
-
+//Establish the events that have to be displayed
 void Manager::eventsToBeDisplayed(unsigned int startIndex)
 {
 
@@ -111,6 +117,7 @@ void Manager::eventsToBeDisplayed(unsigned int startIndex)
 	}
 }
 
+//Get all events
 void Manager::getAllEvents()
 {
 	NODE* tmp = m_linkedList->head;
@@ -121,16 +128,7 @@ void Manager::getAllEvents()
 	}
 }
 
-
-void Manager::search_byDate(std::string key)
-{
-	for(NODE* _event : eventsForDisplayment)
-	{
-		if (_event->data.day == stoi(key) || _event->data.month == stoi(key) || _event->data.year == stoi(key))
-			EventsForDisplayment_sorted.push_back(_event);
-	}
-}
-
+//Export events to Excel
 void Manager::exportEvents()
 {
 	time_t rawtime;
@@ -160,13 +158,22 @@ void Manager::exportEvents()
 		tmp = tmp->next;
 	}
 	
-	
-
 
 	m_linkedList->m_eventsData.close();
 
 }
 
+//Search through events, using date key
+void Manager::search_byDate(std::string key)
+{
+	for (NODE* _event : eventsForDisplayment)
+	{
+		if (_event->data.day == stoi(key) || _event->data.month == stoi(key) || _event->data.year == stoi(key))
+			EventsForDisplayment_sorted.push_back(_event);
+	}
+}
+
+//Search through events, using day key
 void Manager::search_byDay(std::string key)
 {
 	for (NODE* _event : eventsForDisplayment)
@@ -176,6 +183,7 @@ void Manager::search_byDay(std::string key)
 	}
 }
 
+//Search through events, using month key
 void Manager::search_byMonth(std::string key)
 {
 	for (NODE* _event : eventsForDisplayment)
@@ -185,6 +193,7 @@ void Manager::search_byMonth(std::string key)
 	}
 }
 
+//Search through events, using year key
 void Manager::search_byYear(std::string key)
 {
 	for (NODE* _event : eventsForDisplayment)
@@ -194,6 +203,7 @@ void Manager::search_byYear(std::string key)
 	}
 }
 
+//Search through events, using name key
 void Manager::search_byName(std::string key)
 {
 	for (NODE* _event : eventsForDisplayment)
@@ -203,7 +213,7 @@ void Manager::search_byName(std::string key)
 	}
 }
 
-
+//Sort events by newest year
 void Manager::sort_Newest()
 {
 	for (NODE* _event : eventsForDisplayment)
@@ -213,6 +223,8 @@ void Manager::sort_Newest()
 
 	std::sort(EventsForDisplayment_sorted.begin(), EventsForDisplayment_sorted.end(), [](NODE* a, NODE* b)->bool {return a->data.year > b->data.year; });
 }
+
+//Sort events by oldest year
 void Manager::sort_Oldest()
 {
 	for (NODE* _event : eventsForDisplayment)
@@ -223,6 +235,7 @@ void Manager::sort_Oldest()
 	std::sort(EventsForDisplayment_sorted.begin(), EventsForDisplayment_sorted.end(), [](NODE* a, NODE* b)->bool {return a->data.year < b->data.year; });
 }
 
+//Sort events by latest time added
 void Manager::sort_LatestAdded()
 {
 	for (NODE* _event : eventsForDisplayment)
@@ -233,6 +246,7 @@ void Manager::sort_LatestAdded()
 	std::reverse(EventsForDisplayment_sorted.begin(), EventsForDisplayment_sorted.end());
 }
 
+//Sort events by oldest time added
 void Manager::sort_OldestAdded()
 {
 	for (NODE* _event : eventsForDisplayment)
