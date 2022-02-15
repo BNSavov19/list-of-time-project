@@ -147,29 +147,29 @@ void DataBase::innitDataBase()
 	}
 	else if(m_queryIsOn)
 	{
-		buttonsTable->add_row({ "add", "sort", "           ", "reset", "export"});
+		buttonsTable->add_row({ "add", "sort", "           ", "export", "reset"});
 	}
 	else if(m_sortIsOn)
 	{
 
 		if (m_selectedSort == SELECTED_SORT::NEWEST)
 		{
-			buttonsTable->add_row({ "add", "most recent", "           ", "reset", "export" });
+			buttonsTable->add_row({ "add", "most recent", "           ", "export", "reset"});
 		}
 
 		if (m_selectedSort == SELECTED_SORT::OLDEST)
 		{
-			buttonsTable->add_row({ "add", "most old", "           ", "reset", "export" });
+			buttonsTable->add_row({ "add", "most old", "           ", "export", "reset" });
 		}
 
 		if (m_selectedSort == SELECTED_SORT::LATEST_ADDED)
 		{
-			buttonsTable->add_row({ "add", "latest added", "           ", "reset", "export" });
+			buttonsTable->add_row({ "add", "latest added", "           ", "export", "reset" });
 		}
 
 		if (m_selectedSort == SELECTED_SORT::OLDEST_ADDED)
 		{
-			buttonsTable->add_row({ "add", "oldest added", "           ", "reset", "export" });
+			buttonsTable->add_row({ "add", "oldest added", "           ", "export", "reset" });
 		}
 	}
 
@@ -297,7 +297,32 @@ void DataBase::getInput()
 	{
 		if (m_userSelection != SELECTED_FIELD::EVENTS)
 		{
-			m_userSelection = int(m_userSelection) == (m_queryIsOn || m_sortIsOn ? 3 : 2) ? SELECTED_FIELD::ADD : SELECTED_FIELD(int(m_userSelection) + 1);
+
+			if (m_queryIsOn || m_sortIsOn)
+			{
+				if (m_userSelection == SELECTED_FIELD::RESET)
+				{
+					m_userSelection = SELECTED_FIELD::ADD;
+				}
+
+				else
+				{
+					m_userSelection = SELECTED_FIELD(int(m_userSelection) + 1);
+				}
+			}
+
+			else
+			{
+				if (m_userSelection == SELECTED_FIELD::EXPORT)
+				{
+					m_userSelection = SELECTED_FIELD::ADD;
+				}
+
+				else
+				{
+					m_userSelection = SELECTED_FIELD(int(m_userSelection) + 1);
+				}
+			}
 
 		}
 		else
@@ -313,7 +338,31 @@ void DataBase::getInput()
 	{
 		if (m_userSelection != SELECTED_FIELD::EVENTS)
 		{
-			m_userSelection = int(m_userSelection) == 0 ?  (m_queryIsOn || m_sortIsOn ? SELECTED_FIELD::RESET : SELECTED_FIELD::SEARCH) : SELECTED_FIELD(int(m_userSelection) - 1);
+			if (m_queryIsOn || m_sortIsOn)
+			{
+				if (m_userSelection == SELECTED_FIELD::ADD)
+				{
+					m_userSelection = SELECTED_FIELD::RESET;
+				}
+
+				else
+				{
+					m_userSelection = SELECTED_FIELD(int(m_userSelection) - 1);
+				}
+			}
+
+			else
+			{
+				if (m_userSelection == SELECTED_FIELD::ADD)
+				{
+					m_userSelection = SELECTED_FIELD::EXPORT;
+				}
+
+				else
+				{
+					m_userSelection = SELECTED_FIELD(int(m_userSelection) - 1);
+				}
+			}
 
 		}
 		else
@@ -363,19 +412,25 @@ void DataBase::getInput()
 
 		}
 
+		else if (m_userSelection == SELECTED_FIELD::EXPORT)
+		{
+			m_Manager->exportEvents();
+		}
+
 
 
 		else if (m_userSelection == SELECTED_FIELD::RESET)
 		{
 
 			if (m_queryIsOn)
-			{
 				m_queryIsOn = false;
-			}
 
 			if (m_sortIsOn)
-			{
 				m_sortIsOn = false;
+
+			if (m_userSelection == SELECTED_FIELD::RESET)
+			{
+				m_userSelection = SELECTED_FIELD::ADD;
 			}
 
 			m_Manager->EventsForDisplayment_sorted.clear();

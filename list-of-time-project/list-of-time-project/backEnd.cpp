@@ -131,6 +131,42 @@ void Manager::search_byDate(std::string key)
 	}
 }
 
+void Manager::exportEvents()
+{
+	time_t rawtime;
+	struct tm timeinfo;
+	char buffer[80];
+
+	time(&rawtime);
+	localtime_s(&timeinfo, &rawtime);
+
+	strftime(buffer, sizeof(buffer), "%d-%m-%Y", &timeinfo);
+	std::string str(buffer);
+
+
+	m_linkedList->m_eventsData.open("../data/Table_" + str + ".csv", std::fstream::out);
+
+	int counter = 0;
+
+	m_linkedList->m_eventsData << "ID:,NAME:,DAY:,MONTH:,YEAR:,DESCRIPTION:" << std::endl;
+
+
+	NODE* tmp = m_linkedList->head;
+
+	while (tmp->next != nullptr)
+	{
+		m_linkedList->m_eventsData << counter << "," << tmp->data.name << "," << tmp->data.day << ',' << tmp->data.month << ',' << tmp->data.year << ',' << tmp->data.description << std::endl;
+		counter++;
+		tmp = tmp->next;
+	}
+	
+	
+
+
+	m_linkedList->m_eventsData.close();
+
+}
+
 void Manager::search_byDay(std::string key)
 {
 	for (NODE* _event : eventsForDisplayment)

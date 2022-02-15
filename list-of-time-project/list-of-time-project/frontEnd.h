@@ -23,6 +23,7 @@ enum class SELECTED_FIELD {
 	ADD,
 	SORT,
 	SEARCH,
+	EXPORT,
 	RESET,
 	EVENTS
 };

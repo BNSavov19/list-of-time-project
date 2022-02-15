@@ -7,6 +7,7 @@
 #include <conio.h>
 #include <map>
 #include <algorithm>
+#include <ctime>
 #include <Windows.h>
 
 #define MAX_EVENTS_FOR_DISPAYMENT 10
@@ -94,6 +95,7 @@ public:
 	void addEvent(DATA eventData);
 	void eventsToBeDisplayed(unsigned int startIndex);
 	void getAllEvents();
+	void exportEvents();
 
 
 private:
